@@ -69,25 +69,23 @@
             xhttp.send(data);
             xhttp = null;
         },
-        createDragZone: function () {
-            var p1, p2, p3, input;
-            p1 = this.createEls('i', {className: 'far fa-images'});
-            p2 = this.createEls('p', {}, 'Drag and Drop your files here');
-            p3 = this.createEls('p', {}, 'or Browse in this area.');
-            input = this.createEls('input', { type: 'file', accept: '.jpg,.gif,.png,.webp', multiple: 'multiple', className: 'input' });
+        // In the Imgur prototype, replace createDragZone with:
+createButtonUpload: function() {
+    var input = this.createEls('input', { 
+        type: 'file', 
+        accept: '.jpg,.gif,.png,.webp', 
+        multiple: 'multiple', 
+        id: 'imgurUpload',
+        style: 'display: none;'
+    });
+    
+    document.body.appendChild(input);
+    this.status(document.querySelector('.upload-status'));
+},
 
-            Array.prototype.forEach.call(this.info, function (zone) {
-                zone.appendChild(p1);
-                zone.appendChild(p2);
-                zone.appendChild(p3);
-            }.bind(this));
+// Modify the run method:
 
-            Array.prototype.forEach.call(this.dropzone, function (zone) {
-                zone.appendChild(input);
-                this.status(zone);
-                this.upload(zone);
-            }.bind(this));
-        },
+
         loading: function () {
             var div, table, img;
             div = this.createEls('div', { className: 'loading-modal' });
@@ -144,13 +142,13 @@
                 }, false);
             });
         },
-        run: function () {
-            var loadingModal = document.querySelector('.loading-modal');
-            if (!loadingModal) {
-                this.loading();
-            }
-            this.createDragZone();
-        }
+        run: function() {
+    var loadingModal = document.querySelector('.loading-modal');
+    if (!loadingModal) {
+        this.loading();
+    }
+    this.createButtonUpload();
+    this.upload();
     };
     return Imgur;
 }));
