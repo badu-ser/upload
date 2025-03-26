@@ -22,15 +22,7 @@ var feedback = function (res) {
             <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">URL</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#html" role="tab" aria-controls="html" aria-selected="false">HTML</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#bbcode" role="tab" aria-controls="bbcode" aria-selected="false">BBCODE</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" data-toggle="tab" href="#md" role="tab" aria-controls="md" aria-selected="false">MARKDOW</a>
-            </li>
+            
         </ul>
         <div class="tab-content" id="myTabContent">
             <div class="tab-pane fade show active" id="url" role="tabpanel" aria-labelledby="url-tab">
