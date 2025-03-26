@@ -12,35 +12,40 @@ function addImg(ele, content) {
         myDIV.appendChild(newContent.firstChild);
     }
 }
+// Update feedback handler
 var feedback = function(res) {
     var statusDiv = document.querySelector('.upload-status');
-    statusDiv.innerHTML = '';
     
-    if (res.success === true) {
-        var get_link = res.data.link.replace(/^http:\/\//i, 'https://');
-        var content = `
-            <div class="alert alert-success mt-3">
-                <input class="form-control mb-2" value="${get_link}" onclick="this.select()">
-                <img src="${get_link}" class="img-fluid rounded">
+    if (res.success) {
+        var link = res.data.link.replace(/^http:/i, 'https:');
+        statusDiv.innerHTML = `
+            <div class="upload-result">
+                <input value="${link}" readonly class="link-box">
+                <img src="${link}" class="preview">
             </div>
         `;
-        statusDiv.innerHTML = content;
     } else {
-        statusDiv.innerHTML = `<div class="alert alert-danger">Upload failed: ${res.data.error}</div>`;
+        statusDiv.innerHTML = 'Upload failed. Please try another image.';
     }
 };
 
-// Initialize with modified options
+// Initialize Imgur client
 var imgurClient = new Imgur({
-    clientid: '146def7f79c7a87',
+    clientid: '146def7f79c7a87', // Replace with your ID
     callback: feedback
 });
 
-// Add click handler for the button
+// Connect button to file input
 document.querySelector('.upload-button').addEventListener('click', function() {
     document.getElementById('imgurUpload').click();
 });
-new Imgur({
-    clientid: '146def7f79c7a87', //You can change this ClientID
-    callback: feedback
+
+// Handle file selection
+document.getElementById('imgurUpload').addEventListener('change', function(e) {
+    Array.from(e.target.files).forEach(file => {
+        imgurClient.matchFiles(file, document.body); // Status will append to body
+    });
+    e.target.value = ''; // Reset input
 });
+
+// Initialize with modified options
