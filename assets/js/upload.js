@@ -18,20 +18,46 @@ var feedback = function (res) {
         var get_link = res.data.link.replace(/^http:\/\//i, 'https://');
         document.querySelector('.status').classList.add('bg-image', 'center', 'mt-2', 'py-2');
         var content = `<div style="width: 95%;">
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">URL</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="url" role="tabpanel" aria-labelledby="url-tab">
-                <div class="my-2"><input class="form-control" value="${get_link}" onclick="this.select();"/></div>
-            </div>
-            
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#url" role="tab" aria-controls="url" aria-selected="true">
+                URL
+            </a>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="myTabContent">
+        <div class="tab-pane fade show active" id="url" role="tabpanel" aria-labelledby="url-tab">
+            <div class="my-2">
+                <input class="form-control text-center" value="${get_link}" onclick="this.select();" readonly/>
             </div>
         </div>
-        <hr><p><img class="img rounded mx-auto d-block" src="${get_link}" alt="Image"/></p>
-        </div>`;
+    </div>
+
+    <div class="upload-preview">
+        <hr>
+        <img class="img-fluid rounded mx-auto d-block" src="${get_link}" alt="Image"/>
+    </div>
+</div>
+<style>.upload-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 5px; /* Reducing unnecessary space */
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+}
+
+.upload-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}</style>`;
         addImg('.status', content);
     }
 };
