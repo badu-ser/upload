@@ -69,25 +69,22 @@
             xhttp.send(data);
             xhttp = null;
         },
-        createDragZone: function () {
-            var p1, p2, p3, input;
-            p1 = this.createEls('i', {className: 'far fa-images'});
-            p2 = this.createEls('p', {}, 'Drag and Drop your files here');
-            p3 = this.createEls('p', {}, 'or Browse in this area.');
-            input = this.createEls('input', { type: 'file', accept: '.jpg,.gif,.png,.webp', multiple: 'multiple', className: 'input' });
-
-            Array.prototype.forEach.call(this.info, function (zone) {
-                zone.appendChild(p1);
-                zone.appendChild(p2);
-                zone.appendChild(p3);
-            }.bind(this));
-
-            Array.prototype.forEach.call(this.dropzone, function (zone) {
-                zone.appendChild(input);
-                this.status(zone);
-                this.upload(zone);
-            }.bind(this));
-        },
+        // Change createDragZone() to create a modern interface
+createDragZone: function() {
+  const zoneContent = `
+    <div class="modern-uploader">
+      <svg class="upload-icon" ...></svg>
+      <div class="upload-text">
+        <div class="dynamic-text">Select or Drag Files</div>
+        <div class="file-types">PNG, JPG, GIF up to 20MB</div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  `;
+  this.dropzone.innerHTML = zoneContent;
+},
         loading: function () {
             var div, table, img;
             div = this.createEls('div', { className: 'loading-modal' });
